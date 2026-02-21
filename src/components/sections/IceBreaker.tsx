@@ -3,22 +3,26 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/SectionWrapper";
+import Image from "next/image";
 
 const badSites = [
     {
         name: "lingscars.com",
         description: "A car leasing site that looks like a fever dream. Flashing colors, random dragons, moving text everywhere.",
-        vibe: "Sensory overload",
+        vibe: "Sensory overload 🤯",
+        image: "/images/lings-cars-bad-website-design.jpg.avif",
     },
     {
-        name: "arngren.net",
-        description: "A Norwegian electronics store with every single product crammed onto one page. No whitespace. No mercy.",
-        vibe: "Where's Waldo: Shopping Edition",
+        name: "bella-de-soto.com",
+        description: "No visual hierarchy, inconsistent fonts, random clip-art. It's like a Word document from 2003 gained sentience.",
+        vibe: "Lost in time 🕰️",
+        image: "/images/bella-de-soto-bad-website-design.jpg.avif",
     },
     {
         name: "art.yale.edu (old)",
         description: "Yale's School of Art website — intentionally chaotic. Proves that even Ivy League doesn't guarantee good UI.",
-        vibe: "Professional chaos",
+        vibe: "Professional chaos 🎨",
+        image: "/images/yale.png",
     },
 ];
 
@@ -70,7 +74,7 @@ export default function IceBreaker() {
                         transition={{ duration: 0.5 }}
                     >
                         {/* Site tabs */}
-                        <div className="flex gap-2 justify-center mb-6">
+                        <div className="flex gap-2 justify-center mb-8">
                             {badSites.map((site, i) => (
                                 <button
                                     key={site.name}
@@ -85,30 +89,66 @@ export default function IceBreaker() {
                             ))}
                         </div>
 
-                        {/* Site info */}
-                        <motion.div
-                            key={currentSite}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="max-w-xl mx-auto bg-card rounded-2xl border border-border p-8 text-center"
-                        >
-                            <h4 className="text-xl font-semibold text-text-primary mb-2">
-                                {badSites[currentSite].name}
-                            </h4>
-                            <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                                {badSites[currentSite].description}
-                            </p>
-                            <span className="inline-block px-3 py-1 bg-background text-text-secondary/70 rounded-full text-xs font-medium">
-                                Vibe: {badSites[currentSite].vibe}
-                            </span>
-                        </motion.div>
+                        {/* Site info + image */}
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentSite}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                                className="max-w-3xl mx-auto"
+                            >
+                                {/* Info card */}
+                                <div className="bg-card rounded-2xl border border-border p-6 text-center mb-4">
+                                    <h4 className="text-xl font-semibold text-text-primary mb-2">
+                                        {badSites[currentSite].name}
+                                    </h4>
+                                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                                        {badSites[currentSite].description}
+                                    </p>
+                                    <span className="inline-block px-3 py-1 bg-background text-text-secondary/70 rounded-full text-xs font-medium">
+                                        Vibe: {badSites[currentSite].vibe}
+                                    </span>
+                                </div>
+
+                                {/* Screenshot preview */}
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.97 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.15, duration: 0.4 }}
+                                    className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm"
+                                >
+                                    {/* Browser chrome */}
+                                    <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-background/50">
+                                        <div className="w-3 h-3 rounded-full bg-red-400/60" />
+                                        <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+                                        <div className="w-3 h-3 rounded-full bg-green-400/60" />
+                                        <div className="ml-3 flex-1 bg-card rounded-lg px-3 py-1 text-xs text-text-secondary/50 font-mono">
+                                            {badSites[currentSite].name}
+                                        </div>
+                                    </div>
+
+                                    {/* Image */}
+                                    <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
+                                        <Image
+                                            src={badSites[currentSite].image}
+                                            alt={`Screenshot of ${badSites[currentSite].name}`}
+                                            fill
+                                            className="object-cover object-top"
+                                            sizes="(max-width: 768px) 100vw, 768px"
+                                        />
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        </AnimatePresence>
 
                         {/* The hook */}
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="text-center mt-10"
+                            transition={{ delay: 0.4 }}
+                            className="text-center mt-12"
                         >
                             <div className="inline-block bg-dark rounded-2xl px-10 py-6">
                                 <p className="text-lg font-semibold text-card">

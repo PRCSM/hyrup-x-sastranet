@@ -1,5 +1,6 @@
 import HeroSection from "@/components/sections/HeroSection";
 import IceBreaker from "@/components/sections/IceBreaker";
+import WhyGoodDesign from "@/components/sections/WhyGoodDesign";
 import WebFlowDiagram from "@/components/sections/WebFlowDiagram";
 import SkeletonToModernDemo from "@/components/sections/SkeletonToModernDemo";
 import HTMLVisualizer from "@/components/sections/HTMLVisualizer";
@@ -38,7 +39,10 @@ export default function Day1Page() {
             {/* Section 2 — Ice Breaker */}
             <IceBreaker />
 
-            {/* Section 3 — How the web works */}
+            {/* Section 3 — Why good design matters */}
+            <WhyGoodDesign />
+
+            {/* Section 4 — How the web works */}
             <WebFlowDiagram />
 
             <QuoteBanner
