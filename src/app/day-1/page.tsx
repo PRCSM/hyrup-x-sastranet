@@ -4,6 +4,7 @@ import WhyGoodDesign from "@/components/sections/WhyGoodDesign";
 import WebFlowDiagram from "@/components/sections/WebFlowDiagram";
 import SkeletonToModernDemo from "@/components/sections/SkeletonToModernDemo";
 import HTMLVisualizer from "@/components/sections/HTMLVisualizer";
+import HTMLTagsExplorer from "@/components/sections/HTMLTagsExplorer";
 import SemanticHTML from "@/components/sections/SemanticHTML";
 import DisplayTypes from "@/components/sections/DisplayTypes";
 import CSSPreviewDemo from "@/components/sections/CSSPreviewDemo";
@@ -56,6 +57,9 @@ export default function Day1Page() {
 
             {/* Section 5 — HTML DOM tree */}
             <HTMLVisualizer />
+
+            {/* Section 6 — HTML Tags Explorer */}
+            <HTMLTagsExplorer />
 
             <QuoteBanner
                 quote="HTML is like building with LEGO blocks. Each tag is a different shaped block."
