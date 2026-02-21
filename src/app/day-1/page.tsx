@@ -5,6 +5,7 @@ import WebFlowDiagram from "@/components/sections/WebFlowDiagram";
 import SkeletonToModernDemo from "@/components/sections/SkeletonToModernDemo";
 import HTMLVisualizer from "@/components/sections/HTMLVisualizer";
 import SemanticHTML from "@/components/sections/SemanticHTML";
+import DisplayTypes from "@/components/sections/DisplayTypes";
 import CSSPreviewDemo from "@/components/sections/CSSPreviewDemo";
 import BoxModelDemo from "@/components/sections/BoxModelDemo";
 import FlexboxPlayground from "@/components/sections/FlexboxPlayground";
@@ -63,7 +64,10 @@ export default function Day1Page() {
             {/* Section 6 — Semantic HTML */}
             <SemanticHTML />
 
-            {/* Section 7 — CSS magic */}
+            {/* Section 7 — Inline vs Block vs Inline-Block */}
+            <DisplayTypes />
+
+            {/* Section 8 — CSS magic */}
             <CSSPreviewDemo />
 
             <QuoteBanner
