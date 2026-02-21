@@ -102,7 +102,7 @@ export default function HeroSection() {
                         </span>
                         <span className="text-text-secondary/40 font-light">×</span>
                         <span className="font-semibold text-base text-text-primary" style={{ fontFamily: "'Georgia', serif" }}>
-                            Sastranet
+                            sastranet
                         </span>
                     </div>
                     <div className="text-sm font-semibold tracking-[0.2em] uppercase text-text-secondary mb-4">

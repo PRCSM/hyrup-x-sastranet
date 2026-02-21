@@ -14,7 +14,7 @@ export default function Navbar() {
                     </span>
                     <span className="text-text-secondary/50 font-light">×</span>
                     <span className="font-semibold text-text-primary" style={{ fontFamily: "'Georgia', serif" }}>
-                        Sastranet
+                        sastranet
                     </span>
                 </div>
 

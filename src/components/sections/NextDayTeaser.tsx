@@ -142,7 +142,7 @@ export default function NextDayTeaser() {
                             </span>
                             <span className="text-text-secondary/40 font-light text-sm">×</span>
                             <span className="font-semibold text-sm text-text-primary" style={{ fontFamily: "'Georgia', serif" }}>
-                                Sastranet
+                                sastranet
                             </span>
                         </div>
                         <p className="text-xs text-text-secondary/50">
