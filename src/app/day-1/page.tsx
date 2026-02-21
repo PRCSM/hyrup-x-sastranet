@@ -8,6 +8,7 @@ import SemanticHTML from "@/components/sections/SemanticHTML";
 import CSSPreviewDemo from "@/components/sections/CSSPreviewDemo";
 import BoxModelDemo from "@/components/sections/BoxModelDemo";
 import FlexboxPlayground from "@/components/sections/FlexboxPlayground";
+import PositionPlayground from "@/components/sections/PositionPlayground";
 import ResponsiveSimulator from "@/components/sections/ResponsiveSimulator";
 import TransformationDemo from "@/components/sections/TransformationDemo";
 import ChallengeBuilder from "@/components/sections/ChallengeBuilder";
@@ -72,7 +73,10 @@ export default function Day1Page() {
             {/* Section 8 — Box model */}
             <BoxModelDemo />
 
-            {/* Section 9 — Flexbox playground */}
+            {/* Section 9 — CSS Position */}
+            <PositionPlayground />
+
+            {/* Section 10 — Flexbox playground */}
             <FlexboxPlayground />
 
             <QuoteBanner
