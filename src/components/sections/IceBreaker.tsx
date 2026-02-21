@@ -29,6 +29,7 @@ const badSites = [
 export default function IceBreaker() {
     const [revealed, setRevealed] = useState(false);
     const [currentSite, setCurrentSite] = useState(0);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
 
     return (
         <SectionWrapper
@@ -89,7 +90,7 @@ export default function IceBreaker() {
                             ))}
                         </div>
 
-                        {/* Site info + image */}
+                        {/* Site info card */}
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentSite}
@@ -97,49 +98,36 @@ export default function IceBreaker() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3 }}
-                                className="max-w-3xl mx-auto"
+                                className="max-w-xl mx-auto"
                             >
-                                {/* Info card */}
-                                <div className="bg-card rounded-2xl border border-border p-6 text-center mb-4">
+                                <div className="bg-card rounded-2xl border border-border p-8 text-center">
                                     <h4 className="text-xl font-semibold text-text-primary mb-2">
                                         {badSites[currentSite].name}
                                     </h4>
-                                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                                    <p className="text-text-secondary text-sm leading-relaxed mb-4">
                                         {badSites[currentSite].description}
                                     </p>
-                                    <span className="inline-block px-3 py-1 bg-background text-text-secondary/70 rounded-full text-xs font-medium">
+                                    <span className="inline-block px-3 py-1 bg-background text-text-secondary/70 rounded-full text-xs font-medium mb-5">
                                         Vibe: {badSites[currentSite].vibe}
                                     </span>
+
+                                    {/* Click to preview button */}
+                                    <div>
+                                        <motion.button
+                                            whileHover={{ scale: 1.03 }}
+                                            whileTap={{ scale: 0.97 }}
+                                            onClick={() => setLightboxOpen(true)}
+                                            className="px-5 py-2.5 text-sm font-medium rounded-xl border-2 border-dashed border-border hover:border-dark text-text-secondary hover:text-text-primary cursor-pointer transition-all duration-300 flex items-center gap-2 mx-auto"
+                                        >
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                                <path d="M21 15l-5-5L5 21" />
+                                            </svg>
+                                            See the screenshot
+                                        </motion.button>
+                                    </div>
                                 </div>
-
-                                {/* Screenshot preview */}
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.97 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.15, duration: 0.4 }}
-                                    className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm"
-                                >
-                                    {/* Browser chrome */}
-                                    <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-background/50">
-                                        <div className="w-3 h-3 rounded-full bg-red-400/60" />
-                                        <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-                                        <div className="w-3 h-3 rounded-full bg-green-400/60" />
-                                        <div className="ml-3 flex-1 bg-card rounded-lg px-3 py-1 text-xs text-text-secondary/50 font-mono">
-                                            {badSites[currentSite].name}
-                                        </div>
-                                    </div>
-
-                                    {/* Image */}
-                                    <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
-                                        <Image
-                                            src={badSites[currentSite].image}
-                                            alt={`Screenshot of ${badSites[currentSite].name}`}
-                                            fill
-                                            className="object-cover object-top"
-                                            sizes="(max-width: 768px) 100vw, 768px"
-                                        />
-                                    </div>
-                                </motion.div>
                             </motion.div>
                         </AnimatePresence>
 
@@ -157,6 +145,65 @@ export default function IceBreaker() {
                                 <p className="text-2xl font-bold mt-1" style={{ color: "#E8652E" }}>
                                     BETTER than all of those.
                                 </p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* ─── Lightbox Modal ─── */}
+            <AnimatePresence>
+                {lightboxOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+                        onClick={() => setLightboxOpen(false)}
+                    >
+                        {/* Backdrop */}
+                        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+                        {/* Modal content */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                            className="relative w-full max-w-4xl max-h-[85vh] flex flex-col"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Browser chrome */}
+                            <div className="flex items-center justify-between px-4 py-3 bg-[#2a2a2a] rounded-t-2xl">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                                    <div className="w-3 h-3 rounded-full bg-[#fdbc40]" />
+                                    <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                                </div>
+                                <div className="flex-1 mx-4 bg-[#1a1a1a] rounded-lg px-4 py-1.5 text-xs text-white/40 font-mono text-center">
+                                    {badSites[currentSite].name}
+                                </div>
+                                <button
+                                    onClick={() => setLightboxOpen(false)}
+                                    className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white/10 text-white/50 hover:text-white transition-colors cursor-pointer"
+                                >
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                                        <path d="M18 6L6 18M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {/* Screenshot */}
+                            <div className="relative w-full overflow-auto bg-white rounded-b-2xl" style={{ maxHeight: "calc(85vh - 48px)" }}>
+                                <Image
+                                    src={badSites[currentSite].image}
+                                    alt={`Screenshot of ${badSites[currentSite].name}`}
+                                    width={1200}
+                                    height={800}
+                                    className="w-full h-auto"
+                                    sizes="(max-width: 900px) 100vw, 900px"
+                                />
                             </div>
                         </motion.div>
                     </motion.div>

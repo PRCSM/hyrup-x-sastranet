@@ -115,8 +115,8 @@ export default function WhyGoodDesign() {
                             key={p.id}
                             onClick={() => setActivePrinciple(p.id)}
                             className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 cursor-pointer ${activePrinciple === p.id
-                                    ? "bg-dark text-card"
-                                    : "bg-card text-text-secondary border border-border hover:border-accent-dark"
+                                ? "bg-dark text-card"
+                                : "bg-card text-text-secondary border border-border hover:border-accent-dark"
                                 }`}
                         >
                             {p.icon} {p.label}
@@ -171,9 +171,9 @@ export default function WhyGoodDesign() {
                 </AnimatePresence>
             </div>
 
-            {/* Real-world example — Oura & Co */}
-            <div className="mt-16">
-                <div className="flex items-center justify-between mb-6">
+            {/* Real-world example */}
+            <div className="mt-12">
+                <div className="flex items-center justify-between mb-4">
                     <div>
                         <h3 className="text-lg font-semibold text-text-primary">
                             A Real-World Example
@@ -190,26 +190,26 @@ export default function WhyGoodDesign() {
                     </button>
                 </div>
 
-                {/* Oura screenshot in browser chrome */}
-                <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm relative">
+                {/* Screenshot in browser chrome */}
+                <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm relative max-w-4xl mx-auto">
                     {/* Browser chrome */}
-                    <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-background/50">
-                        <div className="w-3 h-3 rounded-full bg-red-400/60" />
-                        <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-                        <div className="w-3 h-3 rounded-full bg-green-400/60" />
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-background/50">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
                         <div className="ml-3 flex-1 bg-card rounded-lg px-3 py-1 text-xs text-text-secondary/50 font-mono">
-                            oura-co.com — interior design agency
+                            beautiful-design-example.com
                         </div>
                     </div>
 
-                    {/* Image */}
-                    <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+                    {/* Image — compact ratio */}
+                    <div className="relative w-full" style={{ aspectRatio: "16/8" }}>
                         <Image
-                            src="/images/Oura & Co_ interior design agency website.jpg"
-                            alt="Oura & Co interior design agency — example of beautiful website design"
+                            src="/images/885affeb-fc94-48a7-8563-7e9d2b51d46e.png"
+                            alt="Example of a beautifully designed website"
                             fill
                             className="object-cover object-top"
-                            sizes="(max-width: 1200px) 100vw, 1200px"
+                            sizes="(max-width: 900px) 100vw, 900px"
                         />
 
                         {/* Annotation overlays */}
@@ -217,10 +217,10 @@ export default function WhyGoodDesign() {
                             {showComparison && (
                                 <>
                                     <AnnotationPill label="Visual Hierarchy" position="top-[8%] left-[5%]" color="#E8652E" />
-                                    <AnnotationPill label="Whitespace" position="top-[40%] right-[5%]" color="#10b981" />
-                                    <AnnotationPill label="Typography" position="top-[18%] left-[30%]" color="#6366f1" />
-                                    <AnnotationPill label="Color Palette" position="bottom-[15%] left-[5%]" color="#f59e0b" />
-                                    <AnnotationPill label="Consistency" position="bottom-[25%] right-[10%]" color="#ec4899" />
+                                    <AnnotationPill label="Whitespace" position="top-[45%] right-[5%]" color="#10b981" />
+                                    <AnnotationPill label="Typography" position="top-[15%] left-[35%]" color="#6366f1" />
+                                    <AnnotationPill label="Color Palette" position="bottom-[12%] left-[5%]" color="#f59e0b" />
+                                    <AnnotationPill label="Consistency" position="bottom-[20%] right-[8%]" color="#ec4899" />
                                 </>
                             )}
                         </AnimatePresence>
@@ -228,8 +228,8 @@ export default function WhyGoodDesign() {
                 </div>
 
                 {/* Caption */}
-                <p className="text-xs text-text-secondary/60 text-center mt-4 italic">
-                    Oura & Co — Notice the clean hierarchy, generous whitespace, minimal color palette, and consistent spacing.
+                <p className="text-xs text-text-secondary/60 text-center mt-3 italic">
+                    Notice the clean hierarchy, generous whitespace, minimal color palette, and consistent spacing.
                     This is what CSS mastery looks like.
                 </p>
             </div>
