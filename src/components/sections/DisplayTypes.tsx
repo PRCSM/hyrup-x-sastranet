@@ -102,8 +102,8 @@ export default function DisplayTypes() {
                             setShowWidthHeight(false);
                         }}
                         className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 cursor-pointer ${activeMode === m.id
-                                ? "bg-dark text-card shadow-md"
-                                : "bg-card text-text-secondary border border-border hover:border-accent-dark"
+                            ? "bg-dark text-card shadow-md"
+                            : "bg-card text-text-secondary border border-border hover:border-accent-dark"
                             }`}
                     >
                         {m.emoji} {m.label}
@@ -150,8 +150,8 @@ export default function DisplayTypes() {
                                         />
                                         <span
                                             className={`${trait.includes("❌")
-                                                    ? "text-red-600/80"
-                                                    : "text-text-secondary"
+                                                ? "text-red-600/80"
+                                                : "text-text-secondary"
                                                 }`}
                                         >
                                             {trait}
@@ -162,7 +162,7 @@ export default function DisplayTypes() {
                         </div>
 
                         {/* CSS code */}
-                        <div className="bg-[#1a1a2e] rounded-xl p-4 font-mono text-sm">
+                        <div className="bg-code-bg rounded-xl p-4 font-mono text-sm">
                             <div className="flex items-center gap-2 mb-3">
                                 <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
                                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
@@ -171,8 +171,8 @@ export default function DisplayTypes() {
                             </div>
                             <pre className="text-green-400 whitespace-pre-wrap leading-relaxed text-xs">
                                 {`.element {\n  display: ${active.id};${showWidthHeight
-                                        ? `\n  width: 150px;    /* ${active.id === "inline" ? "⚠️ IGNORED!" : "✅ Works!"} */\n  height: 60px;    /* ${active.id === "inline" ? "⚠️ IGNORED!" : "✅ Works!"} */`
-                                        : ""
+                                    ? `\n  width: 150px;    /* ${active.id === "inline" ? "⚠️ IGNORED!" : "✅ Works!"} */\n  height: 60px;    /* ${active.id === "inline" ? "⚠️ IGNORED!" : "✅ Works!"} */`
+                                    : ""
                                     }\n}`}
                             </pre>
                         </div>
@@ -188,8 +188,8 @@ export default function DisplayTypes() {
                         <button
                             onClick={() => setShowWidthHeight((v) => !v)}
                             className={`px-3 py-1 text-xs font-medium rounded-lg transition-all cursor-pointer ${showWidthHeight
-                                    ? "bg-dark text-card"
-                                    : "bg-background text-text-secondary border border-border hover:border-accent-dark"
+                                ? "bg-dark text-card"
+                                : "bg-background text-text-secondary border border-border hover:border-accent-dark"
                                 }`}
                         >
                             {showWidthHeight ? "Width/Height: ON" : "Try adding width/height"}
@@ -382,8 +382,8 @@ export default function DisplayTypes() {
                                 key={f}
                                 onClick={() => setHighlightFilter(f)}
                                 className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-all cursor-pointer ${highlightFilter === f
-                                        ? "bg-dark text-card"
-                                        : "text-text-secondary/60 hover:text-text-primary"
+                                    ? "bg-dark text-card"
+                                    : "text-text-secondary/60 hover:text-text-primary"
                                     }`}
                             >
                                 {f === "all" ? "All" : f}
@@ -405,8 +405,8 @@ export default function DisplayTypes() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 className={`p-3 border-b border-r border-border text-center transition-colors cursor-default hover:bg-background/50 ${highlightFilter !== "all" && t.display === highlightFilter
-                                        ? "bg-background/60"
-                                        : ""
+                                    ? "bg-background/60"
+                                    : ""
                                     }`}
                             >
                                 <span className="text-lg block mb-1">{t.icon}</span>
@@ -415,10 +415,10 @@ export default function DisplayTypes() {
                                 </code>
                                 <span
                                     className={`text-[10px] font-semibold uppercase tracking-wider block mb-0.5 ${t.display === "block"
-                                            ? "text-orange-500"
-                                            : t.display === "inline"
-                                                ? "text-indigo-500"
-                                                : "text-emerald-500"
+                                        ? "text-orange-500"
+                                        : t.display === "inline"
+                                            ? "text-indigo-500"
+                                            : "text-emerald-500"
                                         }`}
                                 >
                                     {t.display}

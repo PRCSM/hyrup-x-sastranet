@@ -97,8 +97,8 @@ export default function PositionPlayground() {
                             setDragOffset({ x: 0, y: 0 });
                         }}
                         className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 cursor-pointer ${activePos === p.id
-                                ? "bg-dark text-card shadow-md"
-                                : "bg-card text-text-secondary border border-border hover:border-accent-dark"
+                            ? "bg-dark text-card shadow-md"
+                            : "bg-card text-text-secondary border border-border hover:border-accent-dark"
                             }`}
                     >
                         {p.emoji} {p.label}
@@ -137,7 +137,7 @@ export default function PositionPlayground() {
                     </AnimatePresence>
 
                     {/* CSS code */}
-                    <div className="bg-[#1a1a2e] rounded-xl p-4 font-mono text-sm">
+                    <div className="bg-code-bg rounded-xl p-4 font-mono text-sm">
                         <div className="flex items-center gap-2 mb-3">
                             <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
                             <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />

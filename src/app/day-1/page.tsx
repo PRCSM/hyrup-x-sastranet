@@ -6,6 +6,7 @@ import SkeletonToModernDemo from "@/components/sections/SkeletonToModernDemo";
 import HTMLVisualizer from "@/components/sections/HTMLVisualizer";
 import HTMLTagsExplorer from "@/components/sections/HTMLTagsExplorer";
 import SemanticHTML from "@/components/sections/SemanticHTML";
+import ClassVsId from "@/components/sections/ClassVsId";
 import DisplayTypes from "@/components/sections/DisplayTypes";
 import CSSPreviewDemo from "@/components/sections/CSSPreviewDemo";
 import BoxModelDemo from "@/components/sections/BoxModelDemo";
@@ -65,10 +66,13 @@ export default function Day1Page() {
                 quote="HTML is like building with LEGO blocks. Each tag is a different shaped block."
             />
 
-            {/* Section 6 — Semantic HTML */}
+            {/* Section 7 — Semantic HTML */}
             <SemanticHTML />
 
-            {/* Section 7 — Inline vs Block vs Inline-Block */}
+            {/* Section 8 — Class vs ID */}
+            <ClassVsId />
+
+            {/* Section 9 — Inline vs Block vs Inline-Block */}
             <DisplayTypes />
 
             {/* Section 8 — CSS magic */}

@@ -207,8 +207,8 @@ export default function HTMLTagsExplorer() {
                             setActiveTagIdx(0);
                         }}
                         className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 cursor-pointer ${activeCategory === cat.id
-                                ? "bg-dark text-card shadow-md"
-                                : "bg-card text-text-secondary border border-border hover:border-accent-dark"
+                            ? "bg-dark text-card shadow-md"
+                            : "bg-card text-text-secondary border border-border hover:border-accent-dark"
                             }`}
                     >
                         {cat.emoji} {cat.label}
@@ -232,8 +232,8 @@ export default function HTMLTagsExplorer() {
                                     key={t.tag}
                                     onClick={() => setActiveTagIdx(i)}
                                     className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer mb-0.5 ${activeTagIdx === i
-                                            ? "bg-dark text-card"
-                                            : "text-text-secondary hover:bg-background/60"
+                                        ? "bg-dark text-card"
+                                        : "text-text-secondary hover:bg-background/60"
                                         }`}
                                 >
                                     <code className="text-xs">&lt;{t.tag}&gt;</code>
@@ -308,7 +308,7 @@ export default function HTMLTagsExplorer() {
                             </div>
 
                             {/* Code block */}
-                            <div className="bg-[#1a1a2e] rounded-2xl p-5 font-mono text-sm">
+                            <div className="bg-code-bg rounded-2xl p-5 font-mono text-sm">
                                 <div className="flex items-center gap-2 mb-4">
                                     <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
                                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
