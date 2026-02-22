@@ -4,13 +4,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/SectionWrapper";
 
-type Category = "text" | "media" | "list" | "table" | "form" | "semantic";
+type Category = "text" | "media" | "list" | "form" | "semantic";
 
 const categories: { id: Category; label: string; emoji: string }[] = [
     { id: "text", label: "Text & Headings", emoji: "✍️" },
     { id: "media", label: "Media & Links", emoji: "🖼️" },
     { id: "list", label: "Lists", emoji: "📋" },
-    { id: "table", label: "Tables", emoji: "📊" },
     { id: "form", label: "Forms", emoji: "📝" },
     { id: "semantic", label: "Semantic", emoji: "🏗️" },
 ];
@@ -37,12 +36,7 @@ const tagsByCategory: Record<Category, TagInfo[]> = {
             funFact: "Browsers add margin above and below <p> by default. That's why your spacing looks weird before you add CSS!",
             code: `<p>I'm a paragraph. I add space\n  above and below myself\n  automatically.</p>\n<p>I'm another paragraph.\n  See the gap between us?</p>`,
         },
-        {
-            tag: "strong / em",
-            name: "Bold & Italic",
-            funFact: "<b> and <strong> LOOK the same but MEAN different things. <strong> tells screen readers 'this is important!'",
-            code: `<p>This is <strong>important</strong>\n  and this is <em>emphasized</em>.</p>\n\n<!-- Don't use <b> and <i> -->\n<!-- Use <strong> and <em> instead\n     for accessibility! -->`,
-        },
+
         {
             tag: "br / hr",
             name: "Break & Rule",
@@ -61,7 +55,7 @@ const tagsByCategory: Record<Category, TagInfo[]> = {
         {
             tag: "a",
             name: "Anchor (Link)",
-            funFact: "target='_blank' opens in a new tab. ALWAYS add rel='noopener' with it — it's a security thing!",
+            funFact: "The anchor tag is how the entire internet is connected. Every link you've ever clicked is an <a> tag!",
             code: `<a href="https://google.com">\n  Go to Google\n</a>\n\n<a href="#section-2">\n  Jump to Section 2 ↓\n</a>\n\n<a href="mailto:hi@test.com">\n  Email me!\n</a>`,
         },
         {
@@ -70,18 +64,6 @@ const tagsByCategory: Record<Category, TagInfo[]> = {
             funFact: "The 'alt' text isn't optional — it describes the image for blind users AND shows if the image fails to load.",
             code: `<img\n  src="photo.jpg"\n  alt="A cute puppy"\n  width="300"\n  height="200"\n/>\n\n<!-- Self-closing tag!\n     No </img> needed -->`,
             selfClosing: true,
-        },
-        {
-            tag: "video / audio",
-            name: "Video & Audio",
-            funFact: "Before HTML5, you needed Flash Player for videos. Steve Jobs killed Flash in 2010 and we got <video> instead!",
-            code: `<video controls width="400">\n  <source src="clip.mp4"\n    type="video/mp4">\n  Your browser is too old!\n</video>\n\n<audio controls>\n  <source src="song.mp3"\n    type="audio/mpeg">\n</audio>`,
-        },
-        {
-            tag: "iframe",
-            name: "Inline Frame",
-            funFact: "This is how YouTube embeds work — it's literally a webpage inside a webpage. Inception but for the web.",
-            code: `<iframe\n  src="https://youtube.com/embed/..."\n  width="560"\n  height="315"\n  title="Video player"\n  allowfullscreen\n></iframe>`,
         },
     ],
     list: [
@@ -97,52 +79,20 @@ const tagsByCategory: Record<Category, TagInfo[]> = {
             funFact: "You can start counting from any number with the 'start' attribute. start='42' makes it start from 42!",
             code: `<ol>\n  <li>First step</li>\n  <li>Second step</li>\n  <li>Third step</li>\n</ol>\n\n<!-- Shows numbers 1. 2. 3. -->`,
         },
-        {
-            tag: "dl / dt / dd",
-            name: "Description List",
-            funFact: "The most underused list in HTML. Perfect for glossaries, FAQs, and metadata. Yet nobody uses it!",
-            code: `<dl>\n  <dt>HTML</dt>\n  <dd>The structure of \n    web pages</dd>\n\n  <dt>CSS</dt>\n  <dd>The styling of \n    web pages</dd>\n</dl>`,
-        },
-    ],
-    table: [
-        {
-            tag: "table",
-            name: "Table",
-            funFact: "In the 2000s, ENTIRE LAYOUTS were built with tables. If your parents coded, they suffered through this.",
-            code: `<table>\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Role</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Alice</td>\n      <td>Developer</td>\n    </tr>\n    <tr>\n      <td>Bob</td>\n      <td>Designer</td>\n    </tr>\n  </tbody>\n</table>`,
-        },
-        {
-            tag: "thead / tbody",
-            name: "Table Sections",
-            funFact: "<thead> and <tbody> are optional but CRITICAL for accessibility. Screen readers use them to navigate tables.",
-            code: `<table>\n  <thead>  <!-- Header row -->\n    <tr><th>Col 1</th></tr>\n  </thead>\n  <tbody>  <!-- Data rows -->\n    <tr><td>Data 1</td></tr>\n  </tbody>\n  <tfoot>  <!-- Footer row -->\n    <tr><td>Total</td></tr>\n  </tfoot>\n</table>`,
-        },
     ],
     form: [
         {
-            tag: "form",
-            name: "Form Container",
-            funFact: "Without JavaScript, forms submit data by RELOADING the entire page. That's how the web worked for 20 years!",
-            code: `<form action="/submit"\n  method="POST">\n\n  <!-- inputs go here -->\n\n  <button type="submit">\n    Submit\n  </button>\n</form>`,
-        },
-        {
             tag: "input",
             name: "Input Field",
-            funFact: "There are 22+ input types! text, email, password, number, date, color, range, file... One tag, infinite personalities.",
-            code: `<input type="text"\n  placeholder="Name">\n\n<input type="email"\n  placeholder="Email">\n\n<input type="password"\n  placeholder="Secret!">\n\n<input type="number"\n  min="0" max="100">\n\n<input type="color"\n  value="#E8652E">`,
+            funFact: "There are 22+ input types! text, email, password, color, date, range, file... One tag, infinite personalities.",
+            code: `<input type="text" placeholder="Name">\n\n<input type="email" placeholder="Email">\n\n<input type="password" placeholder="Secret!">\n\n<input type="color" value="#E8652E">`,
             selfClosing: true,
         },
         {
-            tag: "label",
-            name: "Label",
-            funFact: "Clicking a <label> focuses its input — that's not magic, that's the 'for' attribute matching the input's 'id'!",
-            code: `<label for="email">\n  Email:\n</label>\n<input\n  type="email"\n  id="email"\n  name="email"\n>`,
-        },
-        {
-            tag: "select / textarea",
-            name: "Dropdown & Textbox",
-            funFact: "<textarea> has rows and cols attributes. But in 2025, everyone just uses CSS to size it. The old attributes still work tho!",
-            code: `<select>\n  <option>Pick one</option>\n  <option>HTML</option>\n  <option>CSS</option>\n  <option>JavaScript</option>\n</select>\n\n<textarea\n  rows="4"\n  placeholder="Write here...">\n</textarea>`,
+            tag: "button",
+            name: "Button",
+            funFact: "A <button> inside a <form> submits the form by default! Add type='button' to stop that behavior.",
+            code: `<button type="submit">Submit</button>\n\n<button type="button">Click me</button>\n\n<button disabled>Can't touch this</button>`,
         },
     ],
     semantic: [
