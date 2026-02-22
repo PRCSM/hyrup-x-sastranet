@@ -96,15 +96,7 @@ export default function HeroSection() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                    <div className="flex items-center gap-2 mb-6">
-                        <span className="font-extrabold text-base" style={{ color: "#E8652E" }}>
-                            HYRUP
-                        </span>
-                        <span className="text-text-secondary/40 font-light">×</span>
-                        <span className="font-semibold text-base text-text-primary" style={{ fontFamily: "'Georgia', serif" }}>
-                            sastranet
-                        </span>
-                    </div>
+                    
                     <div className="text-sm font-semibold tracking-[0.2em] uppercase text-text-secondary mb-4">
                         Day 1
                     </div>
