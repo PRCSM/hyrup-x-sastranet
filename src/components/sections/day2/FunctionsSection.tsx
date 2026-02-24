@@ -5,29 +5,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/SectionWrapper";
 import CodeBlock from "@/components/CodeBlock";
 
+const syntaxVariants = [
+    {
+        label: "Function Declaration",
+        code: `function greet(name) {
+  return "Hello " + name;
+}`,
+    },
+    {
+        label: "Arrow Function",
+        code: `const greet = (name) => {
+  return "Hello " + name;
+};`,
+    },
+    {
+        label: "Arrow (Short)",
+        code: `const greet = name => "Hello " + name;`,
+    },
+];
+
 export default function FunctionsSection() {
     const [inputName, setInputName] = useState("Anagha");
     const [result, setResult] = useState<string | null>(null);
-    const [syntaxStep, setSyntaxStep] = useState(0);
-
-    const syntaxSteps = [
-        {
-            label: "Function Declaration",
-            code: `function greet(name) {
-  return "Hello " + name;
-}`,
-        },
-        {
-            label: "Arrow Function",
-            code: `const greet = (name) => {
-  return "Hello " + name;
-};`,
-        },
-        {
-            label: "Arrow (Short)",
-            code: `const greet = name => "Hello " + name;`,
-        },
-    ];
 
     const callFunction = () => {
         setResult(`"Hello ${inputName}"`);
@@ -39,63 +38,48 @@ export default function FunctionsSection() {
             title="Functions"
             subtitle="Reusable blocks of code. Write once, use everywhere."
         >
-            {/* Syntax Evolution */}
-            <div className="max-w-3xl mx-auto mb-12">
-                <h3 className="text-lg font-semibold text-text-primary mb-4">
+            {/* Side-by-side Syntax Comparison */}
+            <div className="max-w-5xl mx-auto mb-12">
+                <h3 className="text-lg font-semibold text-text-primary mb-2">
                     Function Syntax Evolution
                 </h3>
+                <p className="text-sm text-text-secondary mb-6">
+                    Same function, three ways to write it — each step is shorter and cleaner.
+                </p>
 
-                <div className="flex gap-2 mb-4">
-                    {syntaxSteps.map((s, i) => (
-                        <button
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {syntaxVariants.map((s, i) => (
+                        <motion.div
                             key={s.label}
-                            onClick={() => setSyntaxStep(i)}
-                            className={`px-4 py-2 text-sm font-medium rounded-xl transition-all cursor-pointer ${syntaxStep === i
-                                    ? "bg-dark text-card"
-                                    : "bg-card text-text-secondary border border-border hover:border-accent-dark"
-                                }`}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
                         >
-                            {s.label}
-                        </button>
-                    ))}
-                </div>
-
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={syntaxStep}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.25 }}
-                    >
-                        <CodeBlock
-                            code={syntaxSteps[syntaxStep].code}
-                            language="javascript"
-                        />
-                    </motion.div>
-                </AnimatePresence>
-
-                {/* Arrow progression indicator */}
-                <div className="flex items-center justify-center gap-2 mt-4">
-                    {syntaxSteps.map((_, i) => (
-                        <div key={i} className="flex items-center">
-                            <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${i <= syntaxStep
-                                        ? "bg-dark text-card"
-                                        : "bg-card text-text-secondary border border-border"
-                                    }`}
-                            >
-                                {i + 1}
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className="w-6 h-6 rounded-full bg-dark text-card flex items-center justify-center text-xs font-bold">
+                                    {i + 1}
+                                </div>
+                                <span className="text-sm font-semibold text-text-primary">
+                                    {s.label}
+                                </span>
+                                {i === 2 && (
+                                    <span className="text-[9px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                                        SHORTEST
+                                    </span>
+                                )}
                             </div>
-                            {i < syntaxSteps.length - 1 && (
-                                <div className={`w-12 h-0.5 transition-all ${i < syntaxStep ? "bg-dark" : "bg-border"
-                                    }`} />
+                            <CodeBlock code={s.code} language="javascript" />
+                            {i < syntaxVariants.length - 1 && (
+                                <div className="hidden md:flex justify-end -mr-6 mt-2">
+                                    <span className="text-text-secondary/30 text-lg">→</span>
+                                </div>
                             )}
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
-                <p className="text-center text-xs text-text-secondary/60 mt-2">
-                    Each step is shorter — same function, cleaner syntax
+
+                <p className="text-center text-xs text-text-secondary/60 mt-4">
+                    All three do the exact same thing — arrow functions are modern JS shorthand
                 </p>
             </div>
 

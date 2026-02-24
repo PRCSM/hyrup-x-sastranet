@@ -84,11 +84,11 @@ export default function JSHeroSection() {
                             <p className="text-sm text-text-primary font-medium">V8 Engine</p>
                             <p className="text-xs text-text-secondary/70 mt-1">Chrome reads and executes JS code</p>
                         </div>
-                        <div className="bg-card rounded-xl border border-border p-4">
+                        {/* <div className="bg-card rounded-xl border border-border p-4">
                             <div className="text-xs font-semibold text-text-secondary/60 uppercase tracking-wider mb-2">Server</div>
                             <p className="text-sm text-text-primary font-medium">Node.js</p>
                             <p className="text-xs text-text-secondary/70 mt-1">Handle DB, build API, backend logic</p>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Toggle */}

@@ -20,7 +20,7 @@ import JSQuizSection from "@/components/sections/day2/JSQuizSection";
 import JSRecapSection from "@/components/sections/day2/JSRecapSection";
 
 /* ── Change this passkey to whatever you want ── */
-const PASSKEY = "js2025";
+const PASSKEY = "js2026";
 
 function QuoteBanner({ quote, author }: { quote: string; author?: string }) {
     return (

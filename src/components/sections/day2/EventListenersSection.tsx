@@ -50,8 +50,8 @@ export default function EventListenersSection() {
                         whileHover={{ scale: 1.05, y: -2 }}
                         onClick={() => setActiveEvent(i)}
                         className={`px-4 py-3 rounded-xl text-sm transition-all cursor-pointer ${activeEvent === i
-                                ? "bg-dark text-card shadow-md"
-                                : "bg-card text-text-primary border border-border hover:border-accent-dark"
+                            ? "bg-dark text-card shadow-md"
+                            : "bg-card text-text-primary border border-border hover:border-accent-dark"
                             }`}
                     >
                         <span className="text-lg mr-2">{evt.icon}</span>
@@ -64,9 +64,9 @@ export default function EventListenersSection() {
             </div>
 
             {/* Interactive demo */}
-            <div className="max-w-3xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
                 {/* The button */}
-                <div className="bg-card rounded-2xl border border-border p-6">
+                <div className="lg:col-span-2 bg-card rounded-2xl border border-border p-6">
                     <h3 className="text-base font-semibold text-text-primary mb-2">
                         Try It — Click the Button
                     </h3>
@@ -148,7 +148,7 @@ export default function EventListenersSection() {
                 </div>
 
                 {/* Code */}
-                <div>
+                <div className="lg:col-span-3">
                     <div className="text-xs font-medium text-text-secondary/60 mb-2">
                         The code behind it
                     </div>

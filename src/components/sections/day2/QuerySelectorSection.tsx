@@ -24,7 +24,7 @@ const selectorExamples = [
         method: "querySelector",
         code: 'document.querySelector("#main-title")',
         description: "Selects the element with id 'main-title'",
-        matches: ["main-title"],
+        matches: ["h1"],
     },
     {
         selector: '"p"',
@@ -84,14 +84,14 @@ export default function QuerySelectorSection() {
                                 key={i}
                                 onClick={() => setActiveSelector(i)}
                                 className={`w-full text-left px-4 py-3 rounded-xl text-sm font-mono transition-all cursor-pointer flex items-center justify-between ${activeSelector === i
-                                        ? "bg-dark text-card"
-                                        : "bg-card text-text-primary border border-border hover:border-accent-dark"
+                                    ? "bg-dark text-card"
+                                    : "bg-card text-text-primary border border-border hover:border-accent-dark"
                                     }`}
                             >
                                 <span>{ex.code}</span>
                                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans ${activeSelector === i
-                                        ? "bg-white/20"
-                                        : "bg-background text-text-secondary/60"
+                                    ? "bg-white/20"
+                                    : "bg-background text-text-secondary/60"
                                     }`}>
                                     {ex.method === "querySelectorAll" ? "Multiple" : "Single"}
                                 </span>
@@ -117,12 +117,12 @@ export default function QuerySelectorSection() {
                 </div>
 
                 {/* Mini page preview */}
-                <div className="bg-card rounded-2xl border border-border overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2 bg-background/60 border-b border-border">
+                <div className="bg-white rounded-2xl border border-border overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 border-b border-gray-200">
                         <div className="w-2.5 h-2.5 rounded-full bg-red-400/50" />
                         <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
                         <div className="w-2.5 h-2.5 rounded-full bg-green-400/50" />
-                        <span className="text-[10px] text-text-secondary/40 ml-1">Preview — Matched elements glow</span>
+                        <span className="text-[10px] text-gray-400 ml-1">Preview — Matched elements glow</span>
                     </div>
                     <div className="p-4 space-y-3">
                         {htmlElements.map((el) => {
@@ -138,14 +138,12 @@ export default function QuerySelectorSection() {
                                     }}
                                     transition={{ duration: 0.3 }}
                                     className={`rounded-lg p-3 transition-all ${el.className === "card"
-                                            ? "bg-gray-50 border border-gray-200"
-                                            : el.tag === "h1"
-                                                ? "bg-white"
-                                                : ""
+                                        ? "bg-gray-50 border border-gray-200"
+                                        : ""
                                         }`}
                                 >
                                     <div className="flex items-center gap-2">
-                                        <span className="text-[9px] font-mono text-text-secondary/40 bg-background px-1.5 py-0.5 rounded">
+                                        <span className="text-[9px] font-mono text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
                                             &lt;{el.tag}{el.className ? ` class="${el.className}"` : ""}{el.domId ? ` id="${el.domId}"` : ""}&gt;
                                         </span>
                                         {isMatched && (
@@ -158,9 +156,9 @@ export default function QuerySelectorSection() {
                                             </motion.span>
                                         )}
                                     </div>
-                                    <p className={`text-sm mt-1 ${el.tag === "h1"
-                                            ? "font-bold text-lg text-gray-800"
-                                            : "text-gray-600"
+                                    <p className={`mt-1 ${el.tag === "h1"
+                                        ? "font-bold text-lg text-gray-900"
+                                        : "text-sm text-gray-700"
                                         }`}>
                                         {el.text}
                                     </p>

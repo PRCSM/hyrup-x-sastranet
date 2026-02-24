@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import SectionWrapper from "@/components/SectionWrapper";
 
@@ -12,26 +12,44 @@ const arithmeticOps = [
     { symbol: "%", name: "Modulus", example: "10 % 3", result: "1" },
 ];
 
-const comparisonTests = [
-    { left: '5', right: '"5"', looseResult: "true", strictResult: "false" },
-    { left: '0', right: '""', looseResult: "true", strictResult: "false" },
-    { left: 'null', right: 'undefined', looseResult: "true", strictResult: "false" },
-    { left: '1', right: 'true', looseResult: "true", strictResult: "false" },
-    { left: '5', right: '5', looseResult: "true", strictResult: "true" },
-    { left: '"hello"', right: '"hello"', looseResult: "true", strictResult: "true" },
+const comparisonOps = [
+    { symbol: ">", name: "Greater than", example: "10 > 5", result: "true" },
+    { symbol: "<", name: "Less than", example: "3 < 8", result: "true" },
+    { symbol: ">=", name: "Greater or equal", example: "5 >= 5", result: "true" },
+    { symbol: "<=", name: "Less or equal", example: "7 <= 3", result: "false" },
+    { symbol: "!=", name: "Not equal", example: "5 != 3", result: "true" },
 ];
+
+const presets = [
+    { left: '5', right: '"5"' },
+    { left: '0', right: '""' },
+    { left: 'null', right: 'undefined' },
+    { left: '1', right: 'true' },
+    { left: '5', right: '5' },
+    { left: '"hello"', right: '"hello"' },
+];
+
+/* Safely evaluate a JS comparison */
+function safeEval(left: string, op: string, right: string): string {
+    try {
+        // eslint-disable-next-line no-eval
+        const result = eval(`(${left}) ${op} (${right})`);
+        return String(result);
+    } catch {
+        return "Error";
+    }
+}
 
 export default function OperatorsSection() {
     const [leftVal, setLeftVal] = useState("5");
     const [rightVal, setRightVal] = useState('"5"');
-    const [testIdx, setTestIdx] = useState(0);
 
-    const currentTest = comparisonTests[testIdx];
+    const looseResult = useMemo(() => safeEval(leftVal, "==", rightVal), [leftVal, rightVal]);
+    const strictResult = useMemo(() => safeEval(leftVal, "===", rightVal), [leftVal, rightVal]);
 
-    const selectTest = (idx: number) => {
-        setTestIdx(idx);
-        setLeftVal(comparisonTests[idx].left);
-        setRightVal(comparisonTests[idx].right);
+    const selectPreset = (p: { left: string; right: string }) => {
+        setLeftVal(p.left);
+        setRightVal(p.right);
     };
 
     return (
@@ -41,7 +59,7 @@ export default function OperatorsSection() {
             subtitle="Arithmetic operators do math. Comparison operators check conditions."
         >
             {/* Arithmetic operators */}
-            <div className="flex flex-wrap gap-3 mb-12">
+            <div className="flex flex-wrap gap-3 mb-8">
                 {arithmeticOps.map((op) => (
                     <motion.div
                         key={op.symbol}
@@ -61,27 +79,48 @@ export default function OperatorsSection() {
                 ))}
             </div>
 
+            {/* Comparison operators */}
+            <div className="flex flex-wrap gap-3 mb-12">
+                {comparisonOps.map((op) => (
+                    <motion.div
+                        key={op.symbol}
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        className="bg-card rounded-xl border border-border p-4 text-center min-w-[100px] hover:shadow-md transition-shadow"
+                    >
+                        <div className="text-2xl font-bold font-mono text-text-primary mb-1">
+                            {op.symbol}
+                        </div>
+                        <div className="text-xs text-text-secondary mb-2">{op.name}</div>
+                        <div className="bg-code-bg rounded-lg px-2 py-1">
+                            <code className="text-xs font-mono text-green-400">
+                                {op.example} → {op.result}
+                            </code>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+
             {/* == vs === Playground */}
             <div className="max-w-3xl mx-auto">
                 <h3 className="text-xl font-semibold text-text-primary mb-2">
                     == vs === Playground
                 </h3>
                 <p className="text-sm text-text-secondary mb-6">
-                    Click a test case or type your own values to see the difference.
+                    Type any values to compare them — see how == and === give different results.
                 </p>
 
-                {/* Test case buttons */}
+                {/* Preset buttons */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                    {comparisonTests.map((t, i) => (
+                    {presets.map((p, i) => (
                         <button
                             key={i}
-                            onClick={() => selectTest(i)}
-                            className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-all cursor-pointer ${testIdx === i
+                            onClick={() => selectPreset(p)}
+                            className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-all cursor-pointer ${leftVal === p.left && rightVal === p.right
                                     ? "bg-dark text-card"
                                     : "bg-card text-text-secondary border border-border hover:border-accent-dark"
                                 }`}
                         >
-                            {t.left} vs {t.right}
+                            {p.left} vs {p.right}
                         </button>
                     ))}
                 </div>
@@ -97,6 +136,7 @@ export default function OperatorsSection() {
                                 value={leftVal}
                                 onChange={(e) => setLeftVal(e.target.value)}
                                 className="w-full px-3 py-2.5 bg-background border border-border rounded-lg text-base font-mono text-text-primary text-center focus:outline-none focus:border-accent-dark transition-colors"
+                                placeholder='e.g. 5 or "hello"'
                             />
                         </div>
 
@@ -111,6 +151,7 @@ export default function OperatorsSection() {
                                 value={rightVal}
                                 onChange={(e) => setRightVal(e.target.value)}
                                 className="w-full px-3 py-2.5 bg-background border border-border rounded-lg text-base font-mono text-text-primary text-center focus:outline-none focus:border-accent-dark transition-colors"
+                                placeholder='e.g. "5" or true'
                             />
                         </div>
                     </div>
@@ -123,15 +164,17 @@ export default function OperatorsSection() {
                                 {leftVal} == {rightVal}
                             </code>
                             <motion.div
-                                key={`loose-${testIdx}`}
+                                key={`loose-${looseResult}-${leftVal}-${rightVal}`}
                                 initial={{ scale: 0.8 }}
                                 animate={{ scale: 1 }}
-                                className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${currentTest.looseResult === "true"
+                                className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${looseResult === "true"
                                         ? "bg-green-100 text-green-700"
-                                        : "bg-red-100 text-red-700"
+                                        : looseResult === "false"
+                                            ? "bg-red-100 text-red-700"
+                                            : "bg-amber-100 text-amber-700"
                                     }`}
                             >
-                                {currentTest.looseResult}
+                                {looseResult}
                             </motion.div>
                             <p className="text-xs text-text-secondary/60 mt-2">Converts types first</p>
                         </div>
@@ -147,15 +190,17 @@ export default function OperatorsSection() {
                                 {leftVal} === {rightVal}
                             </code>
                             <motion.div
-                                key={`strict-${testIdx}`}
+                                key={`strict-${strictResult}-${leftVal}-${rightVal}`}
                                 initial={{ scale: 0.8 }}
                                 animate={{ scale: 1 }}
-                                className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${currentTest.strictResult === "true"
+                                className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${strictResult === "true"
                                         ? "bg-green-100 text-green-700"
-                                        : "bg-red-100 text-red-700"
+                                        : strictResult === "false"
+                                            ? "bg-red-100 text-red-700"
+                                            : "bg-amber-100 text-amber-700"
                                     }`}
                             >
-                                {currentTest.strictResult}
+                                {strictResult}
                             </motion.div>
                             <p className="text-xs text-text-secondary/60 mt-2">Checks type AND value</p>
                         </div>
@@ -167,7 +212,7 @@ export default function OperatorsSection() {
                     <span className="text-lg shrink-0">💡</span>
                     <p className="text-sm text-amber-900">
                         <strong>Always use ===</strong> — It checks both type and value, preventing sneaky bugs.
-                        <code className="mx-1 bg-amber-100 px-1 rounded">==</code> converts types before comparing,
+                        <code className="mx-1 bg-amber-100 px-1 rounded">==</code>converts types before comparing,
                         which can give unexpected results.
                     </p>
                 </div>
