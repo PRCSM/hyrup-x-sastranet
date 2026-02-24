@@ -7,13 +7,14 @@ import HTMLVisualizer from "@/components/sections/HTMLVisualizer";
 import HTMLTagsExplorer from "@/components/sections/HTMLTagsExplorer";
 import SemanticHTML from "@/components/sections/SemanticHTML";
 import ClassVsId from "@/components/sections/ClassVsId";
-import DisplayTypes from "@/components/sections/DisplayTypes";
 import CSSPreviewDemo from "@/components/sections/CSSPreviewDemo";
+import CSSUnits from "@/components/sections/CSSUnits";
+import DisplayTypes from "@/components/sections/DisplayTypes";
 import BoxModelDemo from "@/components/sections/BoxModelDemo";
-import FlexboxPlayground from "@/components/sections/FlexboxPlayground";
 import PositionPlayground from "@/components/sections/PositionPlayground";
+import FlexboxPlayground from "@/components/sections/FlexboxPlayground";
 import ResponsiveSimulator from "@/components/sections/ResponsiveSimulator";
-import TransformationDemo from "@/components/sections/TransformationDemo";
+import WebsiteDestructure from "@/components/sections/WebsiteDestructure";
 import ChallengeBuilder from "@/components/sections/ChallengeBuilder";
 import RapidFireQuiz from "@/components/sections/RapidFireQuiz";
 import RecapSection from "@/components/sections/RecapSection";
@@ -422,53 +423,7 @@ export default function Day1Page() {
                 ]}
             />
 
-            {/* Section 10 — Box Model */}
-            <BoxModelDemo />
-
-            <PracticeExercise
-                sectionLabel="Box Model"
-                exercises={[
-                    {
-                        title: "Add padding and margin to your card",
-                        description: "See the difference between inner and outer spacing",
-                        code: `.card {\n  padding: 24px;      /* space inside */\n  margin: 16px;       /* space outside */\n  border: 2px solid #ddd;\n  border-radius: 12px;\n}`,
-                        hint: "Right-click → Inspect your card to see the box model diagram live",
-                        preview: <BoxModelPreview />,
-                    },
-                    {
-                        title: "Always add border-box",
-                        description: "Add this reset to the top of your CSS",
-                        code: `* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n/* Now a 300px element stays 300px\n   even with padding! */`,
-                        hint: "Without this, a 300px box + 20px padding = 340px. With it, it stays 300px",
-                        preview: <BorderBoxPreview />,
-                    },
-                ]}
-            />
-
-            {/* Section 11 — Inline vs Block vs Inline-Block */}
-            <DisplayTypes />
-
-            <PracticeExercise
-                sectionLabel="Display Types"
-                exercises={[
-                    {
-                        title: "Style a span inside a paragraph",
-                        description: "See how inline elements flow with text",
-                        code: `<p>\n  My favorite color is\n  <span class="highlight">orange</span>\n  and I love it.\n</p>\n\n<!-- CSS -->\n.highlight {\n  color: #E8652E;\n  font-weight: bold;\n}`,
-                        hint: "Inline elements ignore width/height. That's their whole personality",
-                        preview: <SpanPreview />,
-                    },
-                    {
-                        title: "Put two buttons side by side",
-                        description: "Use inline-block to place elements next to each other",
-                        code: `.btn {\n  display: inline-block;\n  padding: 10px 24px;\n  background: #E8652E;\n  color: white;\n  border-radius: 8px;\n  text-decoration: none;\n}\n\n<!-- HTML -->\n<a href="#" class="btn">Button 1</a>\n<a href="#" class="btn">Button 2</a>`,
-                        hint: "inline-block = sits inline but respects width/height. Best of both worlds",
-                        preview: <ButtonsPreview />,
-                    },
-                ]}
-            />
-
-            {/* Section 12 — CSS magic */}
+            {/* Section 10 — CSS Preview (moved up from 12) */}
             <CSSPreviewDemo />
 
             <PracticeExercise
@@ -491,11 +446,60 @@ export default function Day1Page() {
                 ]}
             />
 
+            {/* Section 11 — CSS Units (NEW) */}
+            <CSSUnits />
+
             <QuoteBanner
                 quote="If HTML is the skeleton, CSS is the outfit. Let's make it look fire."
             />
 
-            {/* Section 13 — CSS Position */}
+            {/* Section 12 — Inline vs Block vs Inline-Block (moved up from 11) */}
+            <DisplayTypes />
+
+            <PracticeExercise
+                sectionLabel="Display Types"
+                exercises={[
+                    {
+                        title: "Style a span inside a paragraph",
+                        description: "See how inline elements flow with text",
+                        code: `<p>\n  My favorite color is\n  <span class="highlight">orange</span>\n  and I love it.\n</p>\n\n<!-- CSS -->\n.highlight {\n  color: #E8652E;\n  font-weight: bold;\n}`,
+                        hint: "Inline elements ignore width/height. That's their whole personality",
+                        preview: <SpanPreview />,
+                    },
+                    {
+                        title: "Put two buttons side by side",
+                        description: "Use inline-block to place elements next to each other",
+                        code: `.btn {\n  display: inline-block;\n  padding: 10px 24px;\n  background: #E8652E;\n  color: white;\n  border-radius: 8px;\n  text-decoration: none;\n}\n\n<!-- HTML -->\n<a href="#" class="btn">Button 1</a>\n<a href="#" class="btn">Button 2</a>`,
+                        hint: "inline-block = sits inline but respects width/height. Best of both worlds",
+                        preview: <ButtonsPreview />,
+                    },
+                ]}
+            />
+
+            {/* Section 13 — Box Model (moved down from 10) */}
+            <BoxModelDemo />
+
+            <PracticeExercise
+                sectionLabel="Box Model"
+                exercises={[
+                    {
+                        title: "Add padding and margin to your card",
+                        description: "See the difference between inner and outer spacing",
+                        code: `.card {\n  padding: 24px;      /* space inside */\n  margin: 16px;       /* space outside */\n  border: 2px solid #ddd;\n  border-radius: 12px;\n}`,
+                        hint: "Right-click → Inspect your card to see the box model diagram live",
+                        preview: <BoxModelPreview />,
+                    },
+                    {
+                        title: "Always add border-box",
+                        description: "Add this reset to the top of your CSS",
+                        code: `* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n/* Now a 300px element stays 300px\n   even with padding! */`,
+                        hint: "Without this, a 300px box + 20px padding = 340px. With it, it stays 300px",
+                        preview: <BorderBoxPreview />,
+                    },
+                ]}
+            />
+
+            {/* Section 14 — CSS Position */}
             <PositionPlayground />
 
             <PracticeExercise
@@ -518,7 +522,7 @@ export default function Day1Page() {
                 ]}
             />
 
-            {/* Section 14 — Flexbox playground */}
+            {/* Section 15 — Flexbox playground */}
             <FlexboxPlayground />
 
             <PracticeExercise
@@ -545,7 +549,7 @@ export default function Day1Page() {
                 quote="Before Flexbox, centering a div was a meme. Now it's 3 lines."
             />
 
-            {/* Section 15 — Responsive simulator */}
+            {/* Section 16 — Responsive simulator */}
             <ResponsiveSimulator />
 
             <PracticeExercise
@@ -568,19 +572,23 @@ export default function Day1Page() {
                 ]}
             />
 
-            {/* Section 16 — Full transformation */}
-            <TransformationDemo />
+            <QuoteBanner
+                quote="A developer doesn't just see a website — they see the boxes inside the boxes."
+            />
 
-            {/* Section 17 — Hero section challenge */}
+            {/* Section 17 — Website Destructure (NEW — replaces TransformationDemo) */}
+            <WebsiteDestructure />
+
+            {/* Section 18 — Hero section challenge */}
             <ChallengeBuilder />
 
-            {/* Section 18 — Rapid-fire quiz */}
+            {/* Section 19 — Rapid-fire quiz */}
             <RapidFireQuiz />
 
-            {/* Section 19 — Recap */}
+            {/* Section 20 — Recap */}
             <RecapSection />
 
-            {/* Section 20 — Day 2 teaser + homework */}
+            {/* Section 21 — Day 2 teaser + homework */}
             <NextDayTeaser />
         </div>
     );

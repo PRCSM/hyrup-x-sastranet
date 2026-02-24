@@ -29,15 +29,26 @@ const questions = [
         fun: "Before Flexbox, 'Pray' was honestly a valid answer.",
     },
     {
-        q: "What does box-sizing: border-box do?",
+        q: "What does position: absolute need to work properly?",
         options: [
-            "Makes the box invisible",
-            "Adds a border",
-            "Width includes padding & border",
-            "Removes margins",
+            "A parent with display: flex",
+            "A parent with position: relative",
+            "The element must be a block element",
+            "It only works on <div> tags",
         ],
-        answer: 2,
-        fun: "Without it, a 300px box with 20px padding = 340px. With it: still 300px. Magic.",
+        answer: 1,
+        fun: "An absolute element positions itself relative to the nearest positioned ancestor. No positioned parent? It'll fly to the <body>!",
+    },
+    {
+        q: "The <img> tag is inline — so why can we set its width & height?",
+        options: [
+            "Because browsers apply display: block to all images",
+            "Because <img> is a replaced element",
+            "Because width/height work on any element",
+            "Because <img> is actually a block element",
+        ],
+        answer: 1,
+        fun: "Replaced elements (img, video, input) are inline but have intrinsic dimensions — so width & height just work. CSS is weird like that!",
     },
     {
         q: "What unit should you use for font sizes?",
@@ -180,8 +191,8 @@ export default function RapidFireQuiz() {
                                 >
                                     <div
                                         className={`p-4 rounded-xl text-sm ${isCorrect
-                                                ? "bg-green-50 text-green-800"
-                                                : "bg-red-50 text-red-700"
+                                            ? "bg-green-50 text-green-800"
+                                            : "bg-red-50 text-red-700"
                                             }`}
                                     >
                                         <span className="font-semibold">
