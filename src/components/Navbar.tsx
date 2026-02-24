@@ -7,7 +7,7 @@ import Link from "next/link";
 const days = [
     { label: "Day 1", href: "/day-1" },
     { label: "Day 2", href: "/day-2" },
-    { label: "Day 3", href: "" },
+    { label: "Day 3", href: "/day-3" },
 ];
 
 export default function Navbar() {
