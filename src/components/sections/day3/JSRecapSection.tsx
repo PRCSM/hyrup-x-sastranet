@@ -96,39 +96,187 @@ function ObjectsRefresher() {
 }
 
 /* ────────────────────────────────────────────────
+   1b. Objects Quick Concepts
+   ──────────────────────────────────────────────── */
+const objectConcepts = [
+    {
+        title: "Dot vs Bracket Notation",
+        code: `const user = { name: "Nishanth", age: 21 };
+
+// Dot notation (preferred)
+console.log(user.name);    // "Nishanth"
+
+// Bracket notation (dynamic keys)
+const key = "age";
+console.log(user[key]);    // 21`,
+        note: "Use dot notation normally. Use brackets when the key is in a variable.",
+    },
+    {
+        title: "Destructuring",
+        code: `const user = { name: "Nishanth", age: 21, city: "Chennai" };
+
+// Extract properties into variables
+const { name, age } = user;
+console.log(name);  // "Nishanth"
+console.log(age);   // 21
+
+// Rename during destructuring
+const { city: userCity } = user;
+console.log(userCity);  // "Chennai"`,
+        note: "Destructuring lets you 'unpack' object properties into variables in one line.",
+    },
+    {
+        title: "Nested Objects",
+        code: `const student = {
+  name: "Anagha",
+  address: {
+    city: "Mumbai",
+    zip: "400001"
+  },
+  hobbies: ["coding", "music"]
+};
+
+console.log(student.address.city);  // "Mumbai"
+console.log(student.hobbies[0]);    // "coding"`,
+        note: "Objects can contain other objects, arrays, or any JS value.",
+    },
+    {
+        title: "Object Methods",
+        code: `const calculator = {
+  result: 0,
+  add(num) {
+    this.result += num;
+    return this;  // enables chaining
+  },
+  reset() {
+    this.result = 0;
+    return this;
+  }
+};
+
+calculator.add(5).add(3);
+console.log(calculator.result);  // 8`,
+        note: "Functions inside objects are called methods. 'this' refers to the object.",
+    },
+];
+
+function ObjectsQuickRecap() {
+    const [activeCard, setActiveCard] = useState(0);
+
+    return (
+        <div className="mb-16">
+            <h3 className="text-lg font-semibold text-text-primary mb-2">Objects — Key Concepts</h3>
+            <p className="text-sm text-text-secondary mb-6">Quick recap of the patterns you&apos;ll use constantly in backend code:</p>
+
+            <div className="max-w-4xl mx-auto">
+                {/* Concept selector */}
+                <div className="flex gap-2 mb-4 flex-wrap">
+                    {objectConcepts.map((c, i) => (
+                        <button
+                            key={c.title}
+                            onClick={() => setActiveCard(i)}
+                            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${activeCard === i
+                                ? "bg-dark text-card"
+                                : "bg-card text-text-secondary border border-border hover:border-accent-dark"
+                                }`}
+                        >
+                            {c.title}
+                        </button>
+                    ))}
+                </div>
+
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCard}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                    >
+                        <CodeBlock code={objectConcepts[activeCard].code} language="javascript" />
+                        <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 flex flex-col justify-center">
+                            <h4 className="text-sm font-bold text-blue-800 mb-2">{objectConcepts[activeCard].title}</h4>
+                            <p className="text-xs text-blue-700 leading-relaxed">{objectConcepts[activeCard].note}</p>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+        </div>
+    );
+}
+
+/* ────────────────────────────────────────────────
    2. Async Deep Dive
    ──────────────────────────────────────────────── */
 const callbackCode = `// Callback Hell — "Pyramid of Doom"
-getUser(userId, function(user) {
-  getOrders(user.id, function(orders) {
-    getDetails(orders[0].id, function(details) {
-      console.log(details);
-      // ...more nesting
+// Each async step nests inside the previous one
+
+loginUser(email, password, function(err, user) {
+  if (err) return console.log("Login failed");
+
+  getUserProfile(user.id, function(err, profile) {
+    if (err) return console.log("Profile failed");
+
+    getOrders(profile.id, function(err, orders) {
+      if (err) return console.log("Orders failed");
+
+      getOrderDetails(orders[0].id, function(err, details) {
+        if (err) return console.log("Details failed");
+        console.log(details);
+        // Even more nesting... 😵
+      });
     });
   });
 });`;
 
 const promiseCode = `// Promise chain — .then()
-getUser(userId)
-  .then(user => getOrders(user.id))
-  .then(orders => getDetails(orders[0].id))
-  .then(details => console.log(details))
-  .catch(error => console.log("Error:", error));`;
+// Flat chain instead of nested callbacks
 
-const asyncAwaitCode = `// Async/Await — reads like sync code
-async function loadData() {
+loginUser(email, password)
+  .then(user => getUserProfile(user.id))
+  .then(profile => getOrders(profile.id))
+  .then(orders => getOrderDetails(orders[0].id))
+  .then(details => {
+    console.log(details);  // ✅ Got the data!
+  })
+  .catch(error => {
+    console.log("Something failed:", error);
+    // One catch handles ALL errors ^
+  });`;
+
+const asyncAwaitCode = `// Async/Await — reads like normal code
+// This is what you'll use in Express routes
+
+async function handleLogin(req, res) {
   try {
-    const user = await getUser(userId);
-    const orders = await getOrders(user.id);
-    const details = await getDetails(orders[0].id);
-    console.log(details);
+    const user = await loginUser(email, password);
+    const profile = await getUserProfile(user.id);
+    const orders = await getOrders(profile.id);
+    const details = await getOrderDetails(orders[0].id);
+
+    res.json({ success: true, details });
   } catch (error) {
-    console.log("Error:", error);
+    res.status(500).json({ error: error.message });
   }
 }`;
 
+const realWorldCode = `// Real-world: Fetching data from an API
+async function getWeather(city) {
+  try {
+    const response = await fetch(
+      \`https://api.weather.com/\${city}\`
+    );
+    const data = await response.json();
+    console.log(\`\${city}: \${data.temp}°C\`);
+  } catch (error) {
+    console.log("Failed to fetch weather");
+  }
+}
+
+getWeather("Chennai");  // Chennai: 32°C`;
+
 function AsyncDeepDive() {
-    const [tab, setTab] = useState<"callbacks" | "promises" | "async">("callbacks");
+    const [tab, setTab] = useState<"callbacks" | "promises" | "async" | "real-world">("callbacks");
     const [fetchState, setFetchState] = useState<"idle" | "loading" | "done">("idle");
     const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
 
@@ -156,6 +304,7 @@ function AsyncDeepDive() {
                     { key: "callbacks" as const, label: "1. Callbacks", emoji: "😵" },
                     { key: "promises" as const, label: "2. Promises", emoji: "🔗" },
                     { key: "async" as const, label: "3. Async/Await", emoji: "✨" },
+                    { key: "real-world" as const, label: "4. Real World", emoji: "🌍" },
                 ].map(t => (
                     <button
                         key={t.key}
@@ -241,6 +390,46 @@ function AsyncDeepDive() {
                                             disabled={fetchState === "loading"}
                                             className={`w-full px-3 py-2 rounded-lg text-xs font-medium cursor-pointer transition-all ${fetchState === "loading" ? "bg-amber-100 text-amber-700" : "bg-dark text-card hover:shadow-lg"
                                                 }`}
+                                        >
+                                            {fetchState === "loading" ? "⏳ await fetch(...)..." : "await fetch('/api/users/1')"}
+                                        </button>
+                                        <AnimatePresence>
+                                            {fetchState === "done" && userData && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 5 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className="bg-code-bg rounded-lg p-3 mt-2"
+                                                >
+                                                    <pre className="text-xs font-mono text-green-400">{`{ "name": "${userData.name}", "email": "${userData.email}" }`}</pre>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                    {tab === "real-world" && (
+                        <motion.div key="rw" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <CodeBlock code={realWorldCode} language="javascript" />
+                                <div className="space-y-3">
+                                    <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                                        <h4 className="text-sm font-bold text-purple-800 mb-2">This is what backend code looks like</h4>
+                                        <ul className="space-y-1 text-xs text-purple-700">
+                                            <li>📡 <strong>fetch()</strong> — sends an HTTP request</li>
+                                            <li>⏳ <strong>await</strong> — waits for the response</li>
+                                            <li>📦 <strong>.json()</strong> — parses the JSON body</li>
+                                            <li>🛡️ <strong>try/catch</strong> — handles errors gracefully</li>
+                                        </ul>
+                                    </div>
+                                    {/* Live fetch */}
+                                    <div className="bg-card border border-border rounded-xl p-4">
+                                        <p className="text-xs text-text-secondary mb-3">Try it — real API call:</p>
+                                        <button
+                                            onClick={simulateFetch}
+                                            disabled={fetchState === "loading"}
+                                            className={`w-full px-3 py-2 rounded-lg text-xs font-medium cursor-pointer transition-all ${fetchState === "loading" ? "bg-amber-100 text-amber-700" : "bg-dark text-card hover:shadow-lg"}`}
                                         >
                                             {fetchState === "loading" ? "⏳ await fetch(...)..." : "await fetch('/api/users/1')"}
                                         </button>
@@ -484,6 +673,7 @@ export default function JSRecapSection() {
             subtitle="A quick refresher on Objects and Async JavaScript from Day 2 — essential for backend development."
         >
             <ObjectsRefresher />
+            <ObjectsQuickRecap />
             <AsyncDeepDive />
             <EventLoopVisualizer />
         </SectionWrapper>

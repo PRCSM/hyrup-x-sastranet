@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import BackendHeroSection from "@/components/sections/day3/BackendHeroSection";
 import FrontendVsBackendSection from "@/components/sections/day3/FrontendVsBackendSection";
 import HTTPExplainerSection from "@/components/sections/day3/HTTPExplainerSection";
+import RESTSection from "@/components/sections/day3/RESTSection";
 import RestaurantAnalogySection from "@/components/sections/day3/RestaurantAnalogySection";
 import APIEndpointsSection from "@/components/sections/day3/APIEndpointsSection";
 import WhatIsServerSection from "@/components/sections/day3/WhatIsServerSection";
@@ -147,6 +148,7 @@ export default function Day3Page() {
 
             {/* ── HTTP & APIs ───────────────────────────────── */}
             <HTTPExplainerSection />
+            <RESTSection />
             <RestaurantAnalogySection />
             <APIEndpointsSection />
 

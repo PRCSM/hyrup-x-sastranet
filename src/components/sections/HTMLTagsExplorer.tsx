@@ -45,6 +45,12 @@ const tagsByCategory: Record<Category, TagInfo[]> = {
             selfClosing: true,
         },
         {
+            tag: "div",
+            name: "Block Container",
+            funFact: "<div> is the most used HTML tag on the internet. It's a generic box that does nothing until you style it — think of it as a blank cardboard box you can put anything inside.",
+            code: `<div style="background: #f0f0f0">\n  <h2>I'm inside a div</h2>\n  <p>Divs are block-level — they\n    take the full width and stack\n    vertically.</p>\n</div>\n\n<div style="display: flex">\n  <div>Box 1</div>\n  <div>Box 2</div>\n</div>`,
+        },
+        {
             tag: "span",
             name: "Inline Container",
             funFact: "<span> is the inline version of <div>. It does NOTHING visually until you add CSS. It's a styling hook.",
