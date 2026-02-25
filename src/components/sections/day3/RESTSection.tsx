@@ -108,24 +108,6 @@ export default function RESTSection() {
                 </div>
             </div>
 
-            {/* REST vs SOAP comparison */}
-            <div className="max-w-2xl mx-auto mb-12">
-                <h3 className="text-lg font-semibold text-text-primary mb-4 text-center">REST vs SOAP (the old way)</h3>
-                <div className="bg-card rounded-xl border border-border overflow-hidden">
-                    <div className="grid grid-cols-3 gap-0 text-center text-xs font-bold border-b border-border">
-                        <div className="p-3 bg-background text-text-secondary">Feature</div>
-                        <div className="p-3 bg-green-50 text-green-700">REST</div>
-                        <div className="p-3 bg-red-50 text-red-700">SOAP</div>
-                    </div>
-                    {restVsSoap.map((row) => (
-                        <div key={row.feature} className="grid grid-cols-3 gap-0 border-b border-border last:border-0">
-                            <div className="p-3 text-xs font-medium text-text-primary bg-background">{row.feature}</div>
-                            <div className="p-3 text-xs text-green-700 bg-green-50/30">{row.rest}</div>
-                            <div className="p-3 text-xs text-red-700 bg-red-50/30">{row.old}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* 4 REST principles */}
             <div className="max-w-4xl mx-auto mb-12">

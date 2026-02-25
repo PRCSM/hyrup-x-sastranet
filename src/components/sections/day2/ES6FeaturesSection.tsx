@@ -17,18 +17,6 @@ let y = 10;
 const z = 20;`,
     },
     {
-        name: "Arrow Functions",
-        icon: "➡️",
-        summary: "Shorter syntax for writing functions",
-        code: `// Old way
-function add(a, b) {
-  return a + b;
-}
-
-// Arrow function
-const add = (a, b) => a + b;`,
-    },
-    {
         name: "Template Literals",
         icon: "📝",
         summary: "String interpolation with backticks",
@@ -55,18 +43,6 @@ const age = user.age;
 const { name, age } = user;`,
     },
     {
-        name: "Spread Operator",
-        icon: "🔗",
-        summary: "Expand arrays/objects with ...",
-        code: `const arr = [1, 2, 3];
-const newArr = [...arr, 4, 5];
-// [1, 2, 3, 4, 5]
-
-const obj = { name: "Anagha" };
-const newObj = { ...obj, age: 20 };
-// { name: "Anagha", age: 20 }`,
-    },
-    {
         name: "Modules",
         icon: "📁",
         summary: "Import/export code between files",
@@ -76,29 +52,6 @@ export const greet = name => \`Hi \${name}\`;
 // app.js
 import { greet } from "./utils.js";
 console.log(greet("Anagha"));`,
-    },
-    {
-        name: "Default Params",
-        icon: "⚙️",
-        summary: "Set default values for function parameters",
-        code: `function greet(name = "World") {
-  return \`Hello \${name}!\`;
-}
-
-greet();        // "Hello World!"
-greet("Anagha"); // "Hello Anagha!"`,
-    },
-    {
-        name: "Optional Chaining",
-        icon: "❓",
-        summary: "Safely access nested properties",
-        code: `const user = { address: { city: "Mumbai" } };
-
-// Without (crashes if null)
-user.address.city
-
-// With optional chaining
-user?.address?.city  // safe!`,
     },
 ];
 

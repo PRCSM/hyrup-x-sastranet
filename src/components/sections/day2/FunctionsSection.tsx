@@ -27,9 +27,19 @@ const syntaxVariants = [
 export default function FunctionsSection() {
     const [inputName, setInputName] = useState("Anagha");
     const [result, setResult] = useState<string | null>(null);
+    const [defaultResult, setDefaultResult] = useState<string | null>(null);
+    const [defaultInput, setDefaultInput] = useState("");
 
     const callFunction = () => {
         setResult(`"Hello ${inputName}"`);
+    };
+
+    const callDefaultFunction = () => {
+        if (defaultInput.trim() === "") {
+            setDefaultResult(`"Hello World!" (used default)`);
+        } else {
+            setDefaultResult(`"Hello ${defaultInput}!"`);
+        }
     };
 
     return (
@@ -78,13 +88,26 @@ export default function FunctionsSection() {
                     ))}
                 </div>
 
+                {/* Arrow function recall */}
+                <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm font-semibold text-amber-800">Recall: Arrow Functions</span>
+                        <span className="text-[9px] font-bold bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full">ES6</span>
+                    </div>
+                    <p className="text-xs text-amber-700 leading-relaxed">
+                        Arrow functions (<code className="font-mono bg-amber-100 px-1 rounded">{`() => {}`}</code>) are the modern way to write functions.
+                        When the body is a single expression, you can skip the curly braces and <code className="font-mono bg-amber-100 px-1 rounded">return</code> keyword.
+                        We&apos;ll use them everywhere from here on!
+                    </p>
+                </div>
+
                 <p className="text-center text-xs text-text-secondary/60 mt-4">
                     All three do the exact same thing — arrow functions are modern JS shorthand
                 </p>
             </div>
 
             {/* Live Call Demo */}
-            <div className="max-w-xl mx-auto">
+            <div className="max-w-xl mx-auto mb-12">
                 <div className="bg-card rounded-2xl border border-border p-6">
                     <h3 className="text-base font-semibold text-text-primary mb-4">
                         Call the Function
@@ -140,6 +163,74 @@ export default function FunctionsSection() {
                                 </motion.div>
                             )}
                         </AnimatePresence>
+                    </div>
+                </div>
+            </div>
+
+            {/* Default Parameters */}
+            <div className="max-w-3xl mx-auto">
+                <div className="bg-card rounded-2xl border border-border p-6">
+                    <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-base font-semibold text-text-primary">
+                            Default Parameters
+                        </h3>
+                        <span className="text-[9px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
+                            ES6
+                        </span>
+                    </div>
+                    <p className="text-sm text-text-secondary mb-5 leading-relaxed">
+                        You can set a fallback value for parameters. If the caller doesn&apos;t pass an argument, the default is used.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                        <CodeBlock
+                            code={`function greet(name = "World") {
+  return \`Hello \${name}!\`;
+}
+
+greet();         // "Hello World!"
+greet("Anagha"); // "Hello Anagha!"`}
+                            language="javascript"
+                            highlightLines={[1]}
+                        />
+
+                        {/* Interactive demo */}
+                        <div className="bg-background rounded-xl p-4">
+                            <div className="text-xs font-medium text-text-secondary/60 mb-3">
+                                Try it — leave empty to see the default!
+                            </div>
+                            <input
+                                type="text"
+                                value={defaultInput}
+                                onChange={(e) => {
+                                    setDefaultInput(e.target.value);
+                                    setDefaultResult(null);
+                                }}
+                                className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm font-mono text-text-primary focus:outline-none focus:border-accent-dark transition-colors mb-3"
+                                placeholder="Leave empty for default..."
+                            />
+                            <button
+                                onClick={callDefaultFunction}
+                                className="w-full px-4 py-2 bg-dark text-card rounded-lg text-sm font-medium cursor-pointer hover:shadow-lg transition-all"
+                            >
+                                Run greet({defaultInput ? `"${defaultInput}"` : ""})
+                            </button>
+
+                            <AnimatePresence>
+                                {defaultResult && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="mt-3 bg-code-bg rounded-lg p-3"
+                                    >
+                                        <code className="text-sm font-mono text-green-400">
+                                            <span className="text-code-text/40">← </span>
+                                            {defaultResult}
+                                        </code>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </div>
             </div>

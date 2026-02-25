@@ -10,12 +10,15 @@ import OperatorsSection from "@/components/sections/day2/OperatorsSection";
 import ConditionalsSection from "@/components/sections/day2/ConditionalsSection";
 import LoopsSection from "@/components/sections/day2/LoopsSection";
 import FunctionsSection from "@/components/sections/day2/FunctionsSection";
+import ObjectsArraysSection from "@/components/sections/day2/ObjectsArraysSection";
+import SpreadOperatorSection from "@/components/sections/day2/SpreadOperatorSection";
 import DOMTreeSection from "@/components/sections/day2/DOMTreeSection";
 import QuerySelectorSection from "@/components/sections/day2/QuerySelectorSection";
 import EventListenersSection from "@/components/sections/day2/EventListenersSection";
 import AsyncSection from "@/components/sections/day2/AsyncSection";
 import ES6FeaturesSection from "@/components/sections/day2/ES6FeaturesSection";
 import FrontendBackendSection from "@/components/sections/day2/FrontendBackendSection";
+import HomeworkSection from "@/components/sections/day2/HomeworkSection";
 import JSQuizSection from "@/components/sections/day2/JSQuizSection";
 import JSRecapSection from "@/components/sections/day2/JSRecapSection";
 
@@ -86,8 +89,8 @@ function PasskeyGate({ onUnlock }: { onUnlock: () => void }) {
                             placeholder="Enter passkey..."
                             autoFocus
                             className={`w-full px-4 py-3 rounded-xl border-2 text-sm font-medium text-center tracking-widest uppercase bg-card text-text-primary outline-none transition-all ${error
-                                    ? "border-red-400 bg-red-50"
-                                    : "border-border focus:border-dark"
+                                ? "border-red-400 bg-red-50"
+                                : "border-border focus:border-dark"
                                 }`}
                         />
                     </motion.div>
@@ -165,6 +168,10 @@ export default function Day2Page() {
             {/* ── Functions ──────────────────────────────────── */}
             <FunctionsSection />
 
+            {/* ── Data Structures ─────────────────────────────── */}
+            <ObjectsArraysSection />
+            <SpreadOperatorSection />
+
             {/* ── DOM & Events ────────────────────────────────── */}
             <DOMTreeSection />
             <QuerySelectorSection />
@@ -184,6 +191,9 @@ export default function Day2Page() {
                 quote="Any application that can be written in JavaScript, will eventually be written in JavaScript."
                 author="Atwood's Law"
             />
+
+            {/* ── Homework ────────────────────────────────────── */}
+            <HomeworkSection />
 
             {/* ── Quiz & Recap ────────────────────────────────── */}
             <JSQuizSection />
